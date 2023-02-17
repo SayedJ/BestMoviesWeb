@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
+using NUnit.Framework.Internal;
 using webapp_cloudrun.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace webapp_cloudrun.Context;
 
@@ -32,17 +35,15 @@ public partial class MovieDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=34.71.75.82;database = sep6-movie;User ID=sqlserver;Password=sep6;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        => optionsBuilder.UseSqlServer("Data Source=sep6-movie.database.windows.net;Initial Catalog=movie;User ID=281354@VIAUC.DK;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False;Authentication= 'Active Directory Interactive';ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
     //=> optionsBuilder.UseSqlServer("Data Source=104.154.19.42; database = moviedb; User ID=sqlserver;Password=4335;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
-
         modelBuilder.Entity<Director>(entity =>
         {
             entity
-                .HasNoKey()
+            .HasNoKey()
                 .ToTable("directors");
 
             entity.Property(e => e.MovieId).HasColumnName("movie_id");

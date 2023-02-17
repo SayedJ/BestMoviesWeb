@@ -206,7 +206,7 @@ namespace webapp_cloudrun.Repositories.Impl
             }
             content = content.Replace("null", $"\"{finalImagePath}\"");
             //content = content.Replace("backdrop_path:\")
-            JObject? data = (JObject)JsonConvert.DeserializeObject(content);
+            JObject? data = JsonConvert.DeserializeObject(content) as JObject;
             if (data.HasValues && data["results"].HasValues)
             {
                 imageurl.Url = data["results"][0]["poster_path"].Value<string>();
