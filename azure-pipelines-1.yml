@@ -33,12 +33,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-    jobs:
-- job: BuildAndTest
-  pool:
-    vmImage: ubuntu-latest
-  steps:
-  - script: dotnet build --configuration Release
+
   - task: DotNetCoreCLI@2
     inputs:
       command: 'test'
